@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart1);
+      google.charts.setOnLoadCallback(drawChart2);
+      google.charts.setOnLoadCallback(drawChart3);
+      google.charts.setOnLoadCallback(drawChart4);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+			{% for key, value in data.items() %}
+				{% if value is string %}
+					['{{ key }}', '{{ value }}'],
+				{% else %}
+					['{{ key }}', {{ value }}],
+				{% endif %}
+			{% endfor %}
+        ]);
+
+        var options = {
+          title: 'Sentiments',
+          is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+        chart.draw(data, options);
+      }
+      function drawChart1() {
+        var Internet = google.visualization.arrayToDataTable([
+			{% for key, value in Internet.items() %}
+				{% if value is string %}
+					['{{ key }}', '{{ value }}'],
+				{% else %}
+					['{{ key }}', {{ value }}],
+				{% endif %}
+			{% endfor %}
+        ]);
+
+        var options = {
+			width: 400,
+			height: 400,
+			title: '4G /Internet Homebroadband Related',
+			is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d1'));
+        chart.draw(Internet, options);
+      }
+      function drawChart2() {
+        var Network = google.visualization.arrayToDataTable([
+			{% for key, value in Network.items() %}
+				{% if value is string %}
+					['{{ key }}', '{{ value }}'],
+				{% else %}
+					['{{ key }}', {{ value }}],
+				{% endif %}
+			{% endfor %}
+        ]);
+
+        var options = {
+			width: 400,
+			height: 400,
+			title: 'Network /Coverage Related ',
+			is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d2'));
+        chart.draw(Network, options);
+      }
+      function drawChart3() {
+        var Customer = google.visualization.arrayToDataTable([
+			{% for key, value in Customer.items() %}
+				{% if value is string %}
+					['{{ key }}', '{{ value }}'],
+				{% else %}
+					['{{ key }}', {{ value }}],
+				{% endif %}
+			{% endfor %}
+        ]);
+
+        var options = {
+			width: 400,
+			height: 400,
+			title: 'Customer Service Related',
+			is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d3'));
+        chart.draw(Customer, options);
+      }
+      function drawChart4() {
+        var Other = google.visualization.arrayToDataTable([
+			{% for key, value in Other.items() %}
+				{% if value is string %}
+					['{{ key }}', '{{ value }}'],
+				{% else %}
+					['{{ key }}', {{ value }}],
+				{% endif %}
+			{% endfor %}
+        ]);
+
+        var options = {
+			width: 400,
+			height: 400,
+			title: 'Other Matters',
+			is3D: true,
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d4'));
+        chart.draw(Other, options);
+      }
+    </script>
+	<style>
+		.header {
+			overflow: hidden;
+			background-color: #000b37;
+			padding: 5px 10px;
+		}
+
+		.header a {
+			float: left;
+			color: White;
+			text-align: center;
+			padding: 12px;
+			text-decoration: none;
+			font-size: 18px; 
+			line-height: 25px;
+			border-radius: 4px;
+		}
+
+		.header a.logo {
+			font-size: 25px;
+			font-weight: bold;
+		}
+
+		.header a:hover {
+			background-color: #00d4e5;
+			color: black;
+		}
+
+		.header a.active {
+			background-color: #00d4e5;
+			color: white;
+		}
+
+		.header-right {
+			float: right;
+		}
+
+		@media screen and (max-width: 500px) {
+		  .header a {
+			float: none;
+			display: block;
+			text-align: left;
+		  }
+		  
+		  .header-right {
+			float: none;
+		  }
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+	  <a href="#default" class="logo">Sent AL</a>
+	  <div class="header-right">
+		<a href="home">Home</a>
+		<a href="twitter">Twitter</a>
+		<a href="user">User Reviews</a>
+		<a href="contact">Contact</a>
+		<a href="help">Help</a>
+	  </div>
+	</div>
+	<div style="margin: 10px 0 0 10px;">
+		<h2>Customer Satisfaction According to Your Own Set of Reviews - Review Count : {% block title %}{{ tweetcnt }}{% endblock %}</h2>		
+		<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+	</div>
+	<div class="panel-group" style="margin: 20px">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" href="#collapse1">View User Reviews</a>
+				</h4>
+			</div>
+			<div id="collapse1" class="panel-collapse collapse">
+				<div class="container" style="display: flex; width: 100%;">
+					<table class="table table-striped" style="width: 50%;">
+						<thead>
+							<tr>
+							  <th scope="col">Negative</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for key,value in negoutputs.items() %}
+							<tr>
+							  <td>{{ key }}</td>
+							</tr>
+							{% endfor %}		
+						</tbody>
+					</table>
+					
+					<table class="table table-striped" style="width: 50%;">
+						<thead>
+							<tr>
+							  <th scope="col">Positive</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for key,value in posoutputs.items() %}
+							<tr>
+							  <td>{{ key }}</td>
+							</tr>
+							{% endfor %}		
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>	
+		<div style="margin: 50px 0 0 10px; width: 100%;">
+			<h2 id="header">Categorization of User Reviews</h2>
+			<ul>
+				<li>4G /Internet Homebroadband Related : {% block a %}{{ cat1 }}{% endblock %}</li>
+				<li>Network /Coverage Related : {% block b %}{{ cat2 }}{% endblock %}</li>
+				<li>Customer Service Related : {% block c %}{{ cat3 }}{% endblock %}</li>
+				<li>Other Matters : {% block d %}{{ cat4 }}{% endblock %}</li>
+			</ul>
+			
+			<div class="container" style="display: flex; width: 100%;">	
+				<div id="piechart_3d1" style="width: 50%; "></div>
+				<div id="piechart_3d2" style="width: 50%;"></div>
+			</div>	
+			<div class="container" style="display: flex; width: 100%;">	
+				<div id="piechart_3d3" style="width: 50%;"></div>
+				<div id="piechart_3d4" style="width: 50%;"></div>
+			</div>
+		</div>
+		<div class="panel-group" style="margin: 20px">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h4 class="panel-title">
+						<a data-toggle="collapse" href="#collapse2">View User Reviews</a>
+					</h4>
+				</div>
+				<div id="collapse2" class="panel-collapse collapse">
+					<div class="container" style="display: flex; width: 100%;">
+						<table class="table table-striped" style="width: 25%;">
+							<thead>
+								<tr>
+								  <th scope="col">4G /Internet Homebroadband Related</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for key1,value1 in output_cat1.items() %}
+								<tr>
+								  <td>{{ key1 }}</td>
+								</tr>
+								{% endfor %}		
+							</tbody>
+						</table>
+						<table class="table table-striped" style="width: 25%;">
+							<thead>
+								<tr>
+								  <th scope="col">Network /Coverage Related</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for key1,value1 in output_cat2.items() %}
+								<tr>
+								  <td>{{ key1 }}</td>
+								</tr>
+								{% endfor %}		
+							</tbody>
+						</table>
+						<table class="table table-striped" style="width: 25%;">
+							<thead>
+								<tr>
+								  <th scope="col">Customer Service Related</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for key1,value1 in output_cat3.items() %}
+								<tr>
+								  <td>{{ key1 }}</td>
+								</tr>
+								{% endfor %}		
+							</tbody>
+						</table>
+						<table class="table table-striped" style="width: 25%;">
+							<thead>
+								<tr>
+								  <th scope="col">Other Matters</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for key1,value1 in output_cat4.items() %}
+								<tr>
+								  <td>{{ key1 }}</td>
+								</tr>
+								{% endfor %}		
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>	
+		</div>
+	</div>
+</body>
+</html>

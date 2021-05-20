@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+   <title>Bootstrap 4 Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>  
+  <style>
+	html { 
+		height: 100%; 
+	}
+	* {box-sizing: border-box;}
+
+	body { 
+		margin: 0;  
+		height: 100%; 
+		font-family: Arial, Helvetica, sans-serif;
+		background-image: url({{ url_for('static', filename='images/bg.jpg') }})
+	}
+
+	.header {
+		overflow: hidden;
+		background-color: #000b37;
+		padding: 5px 10px;
+	}
+
+	.header a {
+		float: left;
+		color: White;
+		text-align: center;
+		padding: 12px;
+		text-decoration: none;
+		font-size: 18px; 
+		line-height: 25px;
+		border-radius: 4px;
+	}
+
+	.header a.logo {
+		font-size: 25px;
+		font-weight: bold;
+	}
+
+	.header a:hover {
+		background-color: #00d4e5;
+		color: black;
+	}
+
+	.header a.active {
+		background-color: #00d4e5;
+		color: white;
+	}
+
+	.header-right {
+		float: right;
+	}
+
+	@media screen and (max-width: 500px) {
+	  .header a {
+		float: none;
+		display: block;
+		text-align: left;
+	  }
+	  
+	  .header-right {
+		float: none;
+	  }
+	}
+	
+   .global-container{
+		height:100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		float: left;
+		width: 100%;
+		padding: 50px 0;
+	}
+
+	form{
+		padding-top: 10px;
+		font-size: 14px;
+		margin-top: 30px;
+	}
+
+	.card-title{ font-weight:300; }
+	
+	.card{opacity: 0.9;}
+	
+	.effect7
+	{
+		position:relative;
+		-webkit-box-shadow:0 1px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+		-moz-box-shadow:0 1px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+        box-shadow:0 1px 20px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+	}
+
+	.btn{
+		font-size: 14px;
+		margin-top:20px;
+	}
+
+	.login-form{ 
+		width:700px;
+		margin:20px;
+	}
+
+	.sign-up{
+		text-align:center;
+		padding:20px 0 0;
+	}
+
+	.alert{
+		margin-bottom:-30px;
+		font-size: 13px;
+		margin-top:20px;
+	}
+
+	.modal-dialog {
+		max-width: 800px;
+		margin: 30px auto;
+	}
+
+	.modal-body {
+		position:relative;
+		padding:0px;
+	}
+
+	.close {
+		position:absolute;
+		right:-30px;
+		top:0;
+		z-index:999;
+		font-size:2rem;
+		font-weight: normal;
+		color:#fff;
+		opacity:1;
+	}
+	
+	.custom-file-uploader {
+		position: relative;
+  
+		input[type='file'] {
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			z-index: 5;
+			width: 100%;
+			height: 100%;
+			opacity: 0;
+			cursor: default;
+		}
+	}
+	
+	.loader {
+	  color: #A9A9A9;
+	  font-size: 20px;
+	  margin: 100px auto;
+	  width: 1em;
+	  height: 1em;
+	  border-radius: 50%;
+	  position: relative;
+	  text-indent: -9999em;
+	  -webkit-animation: load4 1.3s infinite linear;
+	  animation: load4 1.3s infinite linear;
+	  -webkit-transform: translateZ(0);
+	  -ms-transform: translateZ(0);
+	  transform: translateZ(0);
+	}
+	@-webkit-keyframes load4 {
+	  0%,
+	  100% {
+		box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+	  }
+	  12.5% {
+		box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+	  }
+	  25% {
+		box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+	  }
+	  37.5% {
+		box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+	  }
+	  50% {
+		box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+	  }
+	  62.5% {
+		box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+	  }
+	  75% {
+		box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+	  }
+	  87.5% {
+		box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+	  }
+	}
+	@keyframes load4 {
+	  0%,
+	  100% {
+		box-shadow: 0 -3em 0 0.2em, 2em -2em 0 0em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 0;
+	  }
+	  12.5% {
+		box-shadow: 0 -3em 0 0, 2em -2em 0 0.2em, 3em 0 0 0, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+	  }
+	  25% {
+		box-shadow: 0 -3em 0 -0.5em, 2em -2em 0 0, 3em 0 0 0.2em, 2em 2em 0 0, 0 3em 0 -1em, -2em 2em 0 -1em, -3em 0 0 -1em, -2em -2em 0 -1em;
+	  }
+	  37.5% {
+		box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 0, 2em 2em 0 0.2em, 0 3em 0 0em, -2em 2em 0 -1em, -3em 0em 0 -1em, -2em -2em 0 -1em;
+	  }
+	  50% {
+		box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 0em, 0 3em 0 0.2em, -2em 2em 0 0, -3em 0em 0 -1em, -2em -2em 0 -1em;
+	  }
+	  62.5% {
+		box-shadow: 0 -3em 0 -1em, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 0, -2em 2em 0 0.2em, -3em 0 0 0, -2em -2em 0 -1em;
+	  }
+	  75% {
+		box-shadow: 0em -3em 0 -1em, 2em -2em 0 -1em, 3em 0em 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0.2em, -2em -2em 0 0;
+	  }
+	  87.5% {
+		box-shadow: 0em -3em 0 0, 2em -2em 0 -1em, 3em 0 0 -1em, 2em 2em 0 -1em, 0 3em 0 -1em, -2em 2em 0 0, -3em 0em 0 0, -2em -2em 0 0.2em;
+	  }
+	}
+	</style>
+</head>
+
+<body>
+	<div class="header">
+	  <a href="#default" class="logo">Sent AL</a>
+	  <div class="header-right">
+		<a href="home">Home</a>
+		<a href="twitter">Twitter</a>
+		<a class="active" href="user">User Reviews</a>
+		<a href="contact">Contact</a>
+		<a href="help">Help</a>
+	</div>
+	</div>
+
+
+	<div class="global-container">
+		<div id = "spinner" class="loader"></div>
+		<div id = "userform" class="card login-form effect7">
+			<div class="card-body">
+				<h3 class="card-title text-center">Customer Reviews</h3>			
+				<div class="card-text">
+					<form id="upload-file" enctype="multipart/form-data" method="post">
+						<div class="form-group">
+							<label><strong>Upload CSV File</strong></label>
+							<div class="custom-file">
+								<input type="file" name="files" multiple class="custom-file-input form-control" id="customFile" accept=".csv">
+								<label class="custom-file-label" for="customFile">Choose file</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" name="upload" value="upload" id="upload" class="btn btn-block btn-info"><i class="fa fa-fw fa-upload"></i> Analyze Information</button>
+						</div>
+					</form>	
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('input[type="file"]').on("change", function() {
+    let filenames = [];
+    let files = document.getElementById("customFile").files;
+    if (files.length > 1) {
+      filenames.push("Total Files (" + files.length + ")");
+    } else {
+      for (let i in files) {
+        if (files.hasOwnProperty(i)) {
+          filenames.push(files[i].name);
+        }
+      }
+    }
+    $(this)
+      .next(".custom-file-label")
+      .html(filenames.join(","));
+  });
+  
+  $("#upload").click(function(){
+    $("#spinner").show();
+    $("#userform").hide();
+  });
+  
+   window.onload = function() {
+    $("#spinner").hide();
+   }
+});
+</script>
