@@ -28,10 +28,10 @@ tokenizer = Tokenizer(num_words=max_fatures, split=' ')
 tokenizer.fit_on_texts(data['review'].values)
 
 # create OAuthHandler object
-auth = OAuthHandler('uGPmwnvUHzB3tKZrB8KO3AHSU', 'rsrC4yiAIg4Bd1yXlsWrM536VFmkusgNFmhBiXALcl1IU5hoA7')
+auth = OAuthHandler('xZlVXHJK7W1qCZyZ08cvUH7Xf', 'g53SQXFfqTZ1qwbzkLbiCJmcwkdw6ufaJc7DyBgeAU87ATiLPs')
 # set access token and secret
-auth.set_access_token('1321517957348876289-EBnDqUJvgrj8Lx0SOzd56OZbflpmkf',
-                      'o8sgu7ha9iDBkvnv33F76CePHscEUsBgbFwNKpEIwfp4g')
+auth.set_access_token('1321517957348876289-rrYKt8bnrOfeWwRzdiCUsjyJLc7EJ7',
+                      'KuYYR2Dida9Ij3zXT4QmlNhjspZh7kWFHMHhNFKBfIzDJ')
 
 # create tweepy API object to fetch tweets
 api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
